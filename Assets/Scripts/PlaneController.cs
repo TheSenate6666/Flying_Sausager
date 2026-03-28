@@ -7,7 +7,7 @@ public class PlaneController : MonoBehaviour
     public float maxThrottle = 100f;
     public float throttleIncrement = 10f;
     public float responsiveness = 10f;
-    public float lift = 135f;
+    public float lift = 30f;
 
     private float throttle;
     private float roll;
@@ -61,5 +61,6 @@ public class PlaneController : MonoBehaviour
 
         hud.text = "Throttle: " + throttle.ToString("F0") + "%\n";
         hud.text += "Airspeed: " + (rb.linearVelocity.magnitude * 3.6f).ToString("F0") + " km/h";
+        hud.text += "Altitude: " + (transform.position.y).ToString("F0") + " m";
     }
 }
