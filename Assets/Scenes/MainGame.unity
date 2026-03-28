@@ -3370,7 +3370,7 @@ MonoBehaviour:
   gravityForce: 10
   maxPumpLift: 98
   verticalDamping: 0.5
-  buoyancySmoothTime: 0.2
+  buoyancySmoothTime: 0
   responsiveness: 10
   yawResponsiveness: 1
   pitchResponsiveness: 1
@@ -3522,9 +3522,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   shakingFactor: 5
   snapSpeed: 5
-  throttlePerPump: 10
+  throttlePerPump: 20
   decayDelay: 2
-  decayRate: 10
+  decayRate: 8
 --- !u!1 &1980541016
 GameObject:
   m_ObjectHideFlags: 0
