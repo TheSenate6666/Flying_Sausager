@@ -3461,7 +3461,7 @@ MonoBehaviour:
   planeController: {fileID: 1864232928}
   strokeBottom: -140
   strokeTop: 60
-  allowableDistance: 80
+  allowableDistance: 100
   resistanceDistance: 160
   fallbackCurve:
     serializedVersion: 2
@@ -3476,8 +3476,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.5483228
-      value: 0.43078172
+      time: 0.50942814
+      value: 0.4942888
       inSlope: 0.8522146
       outSlope: 0.8522146
       tangentMode: 0
@@ -3522,9 +3522,9 @@ MonoBehaviour:
     m_RotationOrder: 4
   shakingFactor: 5
   snapSpeed: 5
-  throttlePerPump: 20
+  throttlePerPump: 12
   decayDelay: 2
-  decayRate: 8
+  decayRate: 10
 --- !u!1 &1980541016
 GameObject:
   m_ObjectHideFlags: 0
@@ -4186,9 +4186,14 @@ MonoBehaviour:
   axis:
     m_key: Yaw
     value: 0
-  maximumSteeringAngle: 200
+  maximumSteeringAngle: 500
+  valueMultiplier: 0.5
+  steeringCurve: 2
+  holdPositionOnRelease: 1
   wheelReleasedSpeed: 350
-  valueMultiplier: 1
+  resistanceStartAngle: 120
+  resistanceStrength: 40
+  resistanceCurve: 1.3
 --- !u!1 &5179669763601515188
 GameObject:
   m_ObjectHideFlags: 0
