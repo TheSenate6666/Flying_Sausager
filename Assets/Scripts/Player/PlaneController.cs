@@ -69,12 +69,16 @@ public class PlaneController : MonoBehaviour
         else
             yaw = Input.GetAxis("Yaw");   // keyboard fallback (Q/E still work)
 
-        if (Input.GetKey(KeyCode.Space))
-            throttle += throttleIncrement * Time.deltaTime;
-        else if (Input.GetKey(KeyCode.LeftShift))
-            throttle -= throttleIncrement * Time.deltaTime;
+        if (ThrottlePump.Instance == null)
+        {
+            if (Input.GetKey(KeyCode.Space))
+                throttle += throttleIncrement * Time.deltaTime;
+            else if (Input.GetKey(KeyCode.LeftShift))
+                throttle -= throttleIncrement * Time.deltaTime;
 
-        throttle = Mathf.Clamp(throttle, 0f, 100f);
+            throttle = Mathf.Clamp(throttle, 0f, 100f);
+        }
+        //throttle = Mathf.Clamp(throttle, 0f, 100f);
     }
 
     private void UpdateHud()
@@ -84,5 +88,11 @@ public class PlaneController : MonoBehaviour
         hud.text  = "Throttle: " + throttle.ToString("F0") + "%\n";
         hud.text += "Airspeed: " + (rb.linearVelocity.magnitude * 3.6f).ToString("F0") + " km/h\n";
         hud.text += "Altitude: " + transform.position.y.ToString("F0") + " m";
+    }
+
+
+    public void SetThrottle(float value)
+    {
+        throttle = Mathf.Clamp(value, 0f, 100f);
     }
 }
