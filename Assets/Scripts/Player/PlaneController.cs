@@ -64,6 +64,8 @@ public class PlaneController : MonoBehaviour
 
     public static PlaneController Instance { get; private set; }
 
+    public float CurrentForwardSpeed => currentForwardSpeed;
+
     private void Awake()
     {
         Instance = this;
