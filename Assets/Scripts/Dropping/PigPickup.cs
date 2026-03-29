@@ -106,8 +106,6 @@ public class PigPickup : MonoBehaviour
         if (pigCountLabel != null)
             pigCountLabel.text = countPrefix + pigCount.ToString();
 
-        // Hide drop button when nothing to drop
-        if (dropButton != null)
-            dropButton.gameObject.SetActive(pigCount > 0);
+        
     }
 }
