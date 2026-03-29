@@ -219,6 +219,12 @@
       },
       "url": "https://packages.unity.com"
     },
+    "dev.hazre.materialshaderreplacer": {
+      "version": "file:C:/Users/Ceyhun/Desktop/dev.hazre.materialshaderreplacer-1.3.0-next.1",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {}
+    },
     "com.unity.modules.accessibility": {
       "version": "1.0.0",
       "depth": 0,
