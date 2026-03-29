@@ -110,9 +110,21 @@ public class ThrottlePump : MonoBehaviour
     private void OnPointerDown(BaseEventData data)
     {
         PointerEventData ped = (PointerEventData)data;
-        isDragging        = true;
-        dragStartY        = ped.position.y;
-        handleStartLocalY = pumpHandle.localPosition.y;
+        isDragging = true;
+        dragStartY = ped.position.y;
+
+        // Use the actual click Y position instead of the handle's center
+        // This way it doesn't matter where on the track the player grabs
+        Canvas canvas = pumpHandle.GetComponentInParent<Canvas>();
+        float scale = canvas != null ? canvas.scaleFactor : 1f;
+
+        RectTransformUtility.ScreenPointToLocalPointInRectangle(
+            pumpHandle.parent as RectTransform,
+            ped.position,
+            ped.pressEventCamera,
+            out Vector2 localClick);
+
+        handleStartLocalY = Mathf.Clamp(localClick.y, strokeBottom, strokeTop);
         lastHandleY       = handleStartLocalY;
         wasAboveMidpoint  = handleStartLocalY > (strokeBottom + strokeTop) * 0.5f;
     }
