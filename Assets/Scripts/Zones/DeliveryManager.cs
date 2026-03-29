@@ -29,7 +29,24 @@ public class DeliveryManager : MonoBehaviour
     public GameObject winPanel;
 
     [Tooltip("Text inside the win panel (optional).")]
-    public TMP_Text winText;
+
+    
+
+    
+    public GameObject playerVisuals;
+
+    [Tooltip("VFX prefab spawned at the player's position on self destruct.")]
+    public GameObject destructionVFX;
+
+    [Tooltip("Where the player respawns after self destructing.")]
+    public Transform respawnPoint;
+
+    [Tooltip("Reference to the plane's Rigidbody to reset velocity on respawn.")]
+    public Rigidbody planeRigidbody;
+
+    [Tooltip("Seconds between explosion and respawn.")]
+    public float respawnDelay = 2f;
+        public TMP_Text winText;
 
     // ── Runtime ───────────────────────────────────────────────────────────────
     private int  deliveryCount  = 0;
@@ -90,5 +107,50 @@ public class DeliveryManager : MonoBehaviour
     {
         if (deliveryCountLabel != null)
             deliveryCountLabel.text = $"Deliveries: {deliveryCount} / {deliveriesRequired}";
+    }
+
+    public void SelfDestruct()
+    {
+        if (gameEnded) return;
+        StartCoroutine(SelfDestructSequence());
+    }
+
+    private System.Collections.IEnumerator SelfDestructSequence()
+    {
+        // ── Death ─────────────────────────────────────────────────────────────
+        // Spawn explosion VFX at current player position
+        if (destructionVFX != null && planeRigidbody != null)
+            Instantiate(destructionVFX, planeRigidbody.transform.position, Quaternion.identity);
+
+        // Hide visuals
+        if (playerVisuals != null)
+            playerVisuals.SetActive(false);
+
+        // Kill all momentum so the rigidbody doesn't drift while hidden
+        if (planeRigidbody != null)
+        {
+            planeRigidbody.linearVelocity        = Vector3.zero;
+            planeRigidbody.angularVelocity   = Vector3.zero;
+            planeRigidbody.isKinematic       = true;    // freeze physics while hidden
+        }
+
+        yield return new WaitForSeconds(respawnDelay);
+
+        // ── Respawn ───────────────────────────────────────────────────────────
+        if (planeRigidbody != null && respawnPoint != null)
+        {
+            // Teleport to respawn point
+            planeRigidbody.transform.position = respawnPoint.position;
+            planeRigidbody.transform.rotation = respawnPoint.rotation;
+
+            // Re-enable physics and clear any residual velocity
+            planeRigidbody.isKinematic      = false;
+            planeRigidbody.linearVelocity       = Vector3.zero;
+            planeRigidbody.angularVelocity  = Vector3.zero;
+        }
+
+        // Show visuals again
+        if (playerVisuals != null)
+            playerVisuals.SetActive(true);
     }
 }
