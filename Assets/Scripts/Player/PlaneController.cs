@@ -43,6 +43,16 @@ public class PlaneController : MonoBehaviour
     public float yawResponsiveness   = 0.5f;
     public float pitchResponsiveness = 1f;
 
+    [Header("Animation")]
+[SerializeField] private Animator planeAnimator;
+
+[Tooltip("Speed in km/h above which the Flying animation triggers.")]
+public float flyingSpeedThreshold = 10f;
+
+[Tooltip("How long the damage animation plays before returning to normal. " +
+         "Match this to your damage animation clip length.")]
+public float damageAnimationDuration = 1.2f;
+
     [Header("HUD")]
     [SerializeField] private TextMeshProUGUI hud;
 
@@ -55,6 +65,12 @@ public class PlaneController : MonoBehaviour
     private float currentForwardSpeed = 0f;
     private float speedSmoothVelocity = 0f;
     private float forwardDecayTimer   = 0f;
+
+    private bool isPlayingDamage = false;
+
+    // Animator parameter names — must match exactly what you typed in the Animator window
+private static readonly int AnimIsFlying  = Animator.StringToHash("IsFlying");
+private static readonly int AnimDamage    = Animator.StringToHash("Damage");
 
     private float rawPumpValue        = 0f;   // written directly by ThrottlePump
     private float smoothedPumpValue   = 0f;   // lerped version used in physics
@@ -80,6 +96,7 @@ public class PlaneController : MonoBehaviour
     {
         HandleInputs();
         UpdateHud();
+        UpdateAnimator();
     }
 
     private void FixedUpdate()
@@ -138,6 +155,31 @@ public class PlaneController : MonoBehaviour
         // 100 = nose down (-1)
         pitchInput = -(value / 50f - 1f);
     }
+
+    private void UpdateAnimator()
+{
+    if (planeAnimator == null || isPlayingDamage) return;
+
+    float speedKmh = currentForwardSpeed * 3.6f;
+    planeAnimator.SetBool(AnimIsFlying, speedKmh > flyingSpeedThreshold);
+}
+
+public void TriggerDamage()
+{
+    if (isPlayingDamage) return;
+    StartCoroutine(DamageSequence());
+}
+
+private System.Collections.IEnumerator DamageSequence()
+{
+    isPlayingDamage = true;
+
+    planeAnimator.SetTrigger(AnimDamage);
+
+    yield return new WaitForSeconds(damageAnimationDuration);
+
+    isPlayingDamage = false;
+}
 
     public void NotifyPump() { }
 
@@ -228,4 +270,13 @@ public class PlaneController : MonoBehaviour
             buoyancyNegativeImage.SetActive(false);
         }
     }
+
+    // ── Collision ─────────────────────────────────────────────────────────────
+private void OnCollisionEnter(Collision collision)
+{
+    // Ignore pigs — they get sucked in, not collided with
+    if (collision.gameObject.CompareTag("Pig")) return;
+
+    TriggerDamage();
+}
 }
