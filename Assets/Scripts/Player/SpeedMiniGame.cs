@@ -123,6 +123,9 @@ public class SpeedMiniGame : MonoBehaviour
         // Freeze the slider visually at the locked value so player can see where they stopped
         // The panel stays visible — it fades/hides only when they next press Set Speed
         SetButtonLabel(labelIdle);
+
+        if (sliderPanel != null)
+        sliderPanel.SetActive(false);
     }
 
     // ── Sweep logic ───────────────────────────────────────────────────────────
