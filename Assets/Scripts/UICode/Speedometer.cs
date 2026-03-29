@@ -54,15 +54,9 @@ public class Speedometer : MonoBehaviour
 
         currentAngle = angleAtZero;
 
-        // Optional: display max speed once
-        if (maxSpeedLabel != null && PlaneController.Instance != null)
-        {
-            float maxKmh = PlaneController.Instance.maxForwardSpeed * 3.6f;
-            maxSpeedLabel.text = ((int)maxKmh).ToString();
-        }
+        
 
-        if (unitLabel != null)
-            unitLabel.text = "km/h";
+       
     }
 
     private void Update()

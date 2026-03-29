@@ -46,6 +46,10 @@ public class PlaneController : MonoBehaviour
     [Header("HUD")]
     [SerializeField] private TextMeshProUGUI hud;
 
+    [Header("Buoyancy Images")]
+    [SerializeField] private GameObject buoyancyPositiveImage;
+    [SerializeField] private GameObject buoyancyNegativeImage;
+
     // ── Runtime ───────────────────────────────────────────────────────────────
     private float targetForwardSpeed  = 0f;
     private float currentForwardSpeed = 0f;
@@ -198,5 +202,30 @@ public class PlaneController : MonoBehaviour
         hud.text  = "Speed:    " + (currentForwardSpeed * 3.6f).ToString("F0") + " km/h\n";
         hud.text += "Altitude: " + transform.position.y.ToString("F0") + " m\n";
         hud.text += "Lift:     " + rawPumpValue.ToString("F0") + "%";
+
+        UpdateBuoyancyImages();
+    }
+
+
+     private void UpdateBuoyancyImages()
+    {
+        if (buoyancyPositiveImage == null || buoyancyNegativeImage == null)
+            return;
+
+        if (rawPumpValue > 50f)
+        {
+            buoyancyPositiveImage.SetActive(true);
+            buoyancyNegativeImage.SetActive(false);
+        }
+        else if (rawPumpValue < 50f)
+        {
+            buoyancyPositiveImage.SetActive(false);
+            buoyancyNegativeImage.SetActive(true);
+        }
+        else
+        {
+            buoyancyPositiveImage.SetActive(false);
+            buoyancyNegativeImage.SetActive(false);
+        }
     }
 }
