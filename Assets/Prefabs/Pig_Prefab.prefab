@@ -126,8 +126,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf4678f588510ce4c9d65f89a234adc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Pig
-  suckSpeed: 5
-  collectDistance: 0.3
+  suckSpeed: 1
+  collectDistance: 5
 --- !u!54 &-2033404763838763320
 Rigidbody:
   m_ObjectHideFlags: 0
