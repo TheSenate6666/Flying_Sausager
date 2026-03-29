@@ -68,9 +68,7 @@ public class SpeedMiniGame : MonoBehaviour
         if (actionButton != null)
             actionButton.onClick.AddListener(OnButtonPressed);
 
-        // Start hidden if a panel reference was given
-        if (sliderPanel != null)
-            sliderPanel.SetActive(false);
+        
 
         SetButtonLabel(labelIdle);
     }
@@ -124,8 +122,7 @@ public class SpeedMiniGame : MonoBehaviour
         // The panel stays visible — it fades/hides only when they next press Set Speed
         SetButtonLabel(labelIdle);
 
-        if (sliderPanel != null)
-        sliderPanel.SetActive(false);
+       
     }
 
     // ── Sweep logic ───────────────────────────────────────────────────────────
