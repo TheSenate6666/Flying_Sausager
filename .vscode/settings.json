@@ -67,6 +67,6 @@
         "*.sln": "*.csproj",
         "*.slnx": "*.csproj"
     },
-    "dotnet.defaultSolution": "Flying_Sausager.slnx",
+    "dotnet.defaultSolution": "Flying_Sausager_.slnx",
     "dotnet.enableWorkspaceBasedDevelopment": false
 }
