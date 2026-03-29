@@ -1,19 +1,6 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-/// <summary>
-/// Vertical UI slider controlling the plane's pitch.
-///
-/// Slider layout (vertical Unity slider):
-///   Top    = 100 = nose DOWN  (-1 pitch torque)
-///   Middle =  50 = neutral    (0)
-///   Bottom =   0 = nose UP    (+1 pitch torque)
-///
-/// The slider snaps back to 50 (neutral) when released,
-/// just like a joystick returning to center.
-/// This can be disabled with snapToNeutral = false if you
-/// prefer the pitch to hold its last value.
-/// </summary>
 public class PitchSlider : MonoBehaviour
 {
     public static PitchSlider Instance { get; private set; }
@@ -22,17 +9,36 @@ public class PitchSlider : MonoBehaviour
     [Tooltip("A vertical Unity Slider. Min = 0, Max = 100, Start value = 50.")]
     public Slider pitchSlider;
 
-    [Header("Behaviour")]
-    [Tooltip("If true, the slider smoothly returns to 50 (neutral) when released. " +
-             "Feels like a spring-loaded joystick.")]
+    [Header("Snap To Neutral (on release)")]
+    [Tooltip("If true, slider returns to 50 when the player lets go.")]
     public bool snapToNeutral = true;
 
-    [Tooltip("How fast the slider returns to neutral when released. " +
-             "Higher = snappier return. Try 3–8.")]
+    [Tooltip("How fast the slider springs back to neutral on release. Try 3–8.")]
     public float neutralSnapSpeed = 5f;
 
+    [Header("Decay (after being set)")]
+    [Tooltip("Seconds after the player releases before decay toward neutral begins.")]
+    public float decayDelay = 2f;
+
+    [Tooltip("How fast the slider creeps back to neutral per second during decay. " +
+             "This is in slider units (0–100 scale). Try 5–15.")]
+    public float decayRate = 8f;
+
+    [Tooltip("How smoothly the decay is applied. Lower = snappier, higher = gradual. " +
+             "Try 0.2–0.8.")]
+    public float decaySmoothTime = 0.4f;
+
+    [Tooltip("Distance from neutral (50) below which the value snaps exactly to 50 " +
+             "to prevent endless micro-drift. Try 0.1–0.5.")]
+    public float decayDeadzone = 0.2f;
+
     // ── Runtime ───────────────────────────────────────────────────────────────
-    private bool isHeld = false;
+    private bool  isHeld          = false;
+    private float decayTimer      = 0f;       // counts down before decay starts
+    private bool  isDecaying      = false;    // true once delay has passed
+    private float smoothVelocity  = 0f;       // internal SmoothDamp state
+
+    private const float Neutral   = 50f;
 
     private void Awake()
     {
@@ -43,35 +49,77 @@ public class PitchSlider : MonoBehaviour
     {
         if (pitchSlider == null) return;
 
-        // Configure slider
         pitchSlider.minValue = 0f;
         pitchSlider.maxValue = 100f;
-        pitchSlider.value    = 50f;   // start at neutral center
+        pitchSlider.value    = Neutral;
 
-        // Drive PlaneController whenever the value changes
         pitchSlider.onValueChanged.AddListener(OnSliderValueChanged);
-
-        // Detect pointer hold/release for snap-back
         AddPointerEvents();
     }
 
     private void Update()
     {
-        // Snap back to neutral (50) when not held
-        if (snapToNeutral && !isHeld && pitchSlider != null)
-        {
-            float current = pitchSlider.value;
-            float neutral = 50f;
+        if (pitchSlider == null) return;
 
-            if (Mathf.Abs(current - neutral) > 0.01f)
-            {
-                pitchSlider.value = Mathf.Lerp(current, neutral,
-                    neutralSnapSpeed * Time.deltaTime);
-            }
-            else
-            {
-                pitchSlider.value = neutral;
-            }
+        if (isHeld)
+        {
+            // Player is actively holding — reset the decay countdown
+            decayTimer  = decayDelay;
+            isDecaying  = false;
+            smoothVelocity = 0f;
+
+            // Snap-to-neutral on hold is disabled while held (obviously)
+            return;
+        }
+
+        // ── Snap back immediately on release (optional) ───────────────────────
+        if (snapToNeutral)
+        {
+            ApplySnapOrDecay();
+            return;
+        }
+
+        // ── Decay after delay (only when snapToNeutral is false) ──────────────
+        if (decayTimer > 0f)
+        {
+            decayTimer -= Time.deltaTime;
+            return;                         // still in grace period, hold position
+        }
+
+        // Grace period over — start decaying
+        isDecaying = true;
+        ApplySnapOrDecay();
+    }
+
+    // ── Shared movement toward neutral ────────────────────────────────────────
+    private void ApplySnapOrDecay()
+    {
+        float current = pitchSlider.value;
+
+        if (Mathf.Abs(current - Neutral) <= decayDeadzone)
+        {
+            pitchSlider.value = Neutral;    // close enough — snap exactly to center
+            isDecaying        = false;
+            smoothVelocity    = 0f;
+            return;
+        }
+
+        if (snapToNeutral)
+        {
+            // Spring back using Lerp — fast and responsive on release
+            pitchSlider.value = Mathf.Lerp(current, Neutral, neutralSnapSpeed * Time.deltaTime);
+        }
+        else if (isDecaying)
+        {
+            // Gradual SmoothDamp decay — slow and weighted, like a heavy lever
+            float target      = Neutral;
+            float maxDelta    = decayRate * Time.deltaTime;
+            float smoothed    = Mathf.SmoothDamp(
+                                    current, target,
+                                    ref smoothVelocity,
+                                    decaySmoothTime,
+                                    maxDelta);
+            pitchSlider.value = smoothed;
         }
     }
 
@@ -82,7 +130,7 @@ public class PitchSlider : MonoBehaviour
             PlaneController.Instance.SetPitchInput(value);
     }
 
-    // ── Pointer held tracking (for snap-back) ─────────────────────────────────
+    // ── Pointer events ────────────────────────────────────────────────────────
     private void AddPointerEvents()
     {
         var trigger = pitchSlider.gameObject.GetComponent<UnityEngine.EventSystems.EventTrigger>()
@@ -94,7 +142,12 @@ public class PitchSlider : MonoBehaviour
 
         AddEntry(trigger,
             UnityEngine.EventSystems.EventTriggerType.PointerUp,
-            _ => isHeld = false);
+            _ =>
+            {
+                isHeld     = false;
+                decayTimer = decayDelay;    // start the grace period on release
+                isDecaying = false;
+            });
     }
 
     private void AddEntry(
