@@ -2366,7 +2366,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6222215949107958018, guid: 32a2bf8dd68b8354292699897efde932, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 57.45
+      value: 98.5
       objectReference: {fileID: 0}
     - target: {fileID: 6222215949107958018, guid: 32a2bf8dd68b8354292699897efde932, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3278,11 +3278,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6222215949107958018, guid: 32a2bf8dd68b8354292699897efde932, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 27.775663
+      value: 98.6
       objectReference: {fileID: 0}
     - target: {fileID: 6222215949107958018, guid: 32a2bf8dd68b8354292699897efde932, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 19.8
+      value: 46.3
       objectReference: {fileID: 0}
     - target: {fileID: 6222215949107958018, guid: 32a2bf8dd68b8354292699897efde932, type: 3}
       propertyPath: m_LocalPosition.z
@@ -5278,10 +5278,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4e98da8f30e073043830310ea859319d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaneController
-  maxForwardSpeed: 30
+  maxForwardSpeed: 25
   forwardDecayDelay: 2
   forwardDecayRate: 2
-  speedSmoothTime: 0.8
+  speedSmoothTime: 1.4
   passiveSpeedDrain: 2
   gravityForce: 10
   maxPumpLift: 98
@@ -5454,8 +5454,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 53.575962, y: 88.903595, z: 88.40827}
-  m_Center: {x: -1.95051, y: 10.987749, z: 32.352123}
+  m_Size: {x: 41.298725, y: 67.416115, z: 50.01709}
+  m_Center: {x: -8.0891285, y: 1.0042305, z: 13.156536}
 --- !u!114 &1910161343
 MonoBehaviour:
   m_ObjectHideFlags: 0
