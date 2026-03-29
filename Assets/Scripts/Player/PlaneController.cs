@@ -47,7 +47,7 @@ public class PlaneController : MonoBehaviour
 [SerializeField] private Animator planeAnimator;
 
 [Tooltip("Speed in km/h above which the Flying animation triggers.")]
-public float flyingSpeedThreshold = 10f;
+public float flyingSpeedThreshold = 0f;
 
 [Tooltip("How long the damage animation plays before returning to normal. " +
          "Match this to your damage animation clip length.")]

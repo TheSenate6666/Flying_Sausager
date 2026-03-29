@@ -14,19 +14,19 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 10
-  m_Fog: 1
-  m_FogColor: {r: 0.3647059, g: 0.60784316, b: 0.98039216, a: 1}
+  m_Fog: 0
+  m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
-  m_FogDensity: 0.001
+  m_FogDensity: 0.01
   m_LinearFogStart: 0
   m_LinearFogEnd: 300
   m_AmbientSkyColor: {r: 0.212, g: 0.227, b: 0.259, a: 1}
   m_AmbientEquatorColor: {r: 0.114, g: 0.125, b: 0.133, a: 1}
   m_AmbientGroundColor: {r: 0.047, g: 0.043, b: 0.035, a: 1}
-  m_AmbientIntensity: 1.5
+  m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: 7d0f86ab5ab73ae418bc9f6eb76a4437, type: 2}
+  m_SkyboxMaterial: {fileID: 10304, guid: 0000000000000000f000000000000000, type: 0}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -1365,7 +1365,7 @@ Transform:
   m_GameObject: {fileID: 95706549}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: 0, y: 0, z: 21.3}
+  m_LocalPosition: {x: 0, y: 0, z: 9.35}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1452,13 +1452,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 99849494}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.29282206, y: 0.008039353, z: -0.0042049107, w: 0.9561239}
-  m_LocalPosition: {x: 0, y: 22.900002, z: -39.2}
+  m_LocalRotation: {x: 0.23203364, y: -0, z: -0, w: 0.9727078}
+  m_LocalPosition: {x: 0, y: 4.27, z: -11.36}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1864232925}
-  m_LocalEulerAnglesHint: {x: 34.057, y: 0.893, z: -0.23}
+  m_LocalEulerAnglesHint: {x: 26.834, y: 0, z: 0}
 --- !u!4 &101876181 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6810952465746209730, guid: 6826c248fb396c64da50ced2062450b3, type: 3}
@@ -9956,7 +9956,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -126.999756, y: 63.322876}
+  m_AnchoredPosition: {x: -127.000244, y: 63.322876}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &693025490
@@ -10510,7 +10510,7 @@ Transform:
   m_GameObject: {fileID: 734045174}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.83, z: 3.53}
+  m_LocalPosition: {x: 0, y: 0.83, z: -0.98}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -26450,11 +26450,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1864232925}
   - component: {fileID: 1864232927}
+  - component: {fileID: 1864232926}
   - component: {fileID: 1864232928}
   - component: {fileID: 1864232929}
   - component: {fileID: 1864232931}
   - component: {fileID: 1864232930}
-  - component: {fileID: 1864232932}
   m_Layer: 0
   m_Name: PlayerPlane
   m_TagString: Untagged
@@ -26486,6 +26486,27 @@ Transform:
   - {fileID: 238196881}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1864232926
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1864232924}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 5.3375883, y: 4.5039544, z: 4.8046403}
+  m_Center: {x: -0.7249589, y: 1.0497324, z: -0.6082289}
 --- !u!54 &1864232927
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -26526,8 +26547,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlaneController
   maxForwardSpeed: 25
-  forwardDecayDelay: 4
-  forwardDecayRate: 0.8
+  forwardDecayDelay: 3
+  forwardDecayRate: 1
   speedSmoothTime: 0.8
   passiveSpeedDrain: 1
   gravityForce: 10
@@ -26757,27 +26778,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!135 &1864232932
-SphereCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1864232924}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 1.5584074
-  m_Center: {x: -0.6641268, y: 0, z: -0.33577788}
 --- !u!1001 &1869028930
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28318,8 +28318,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   shakingFactor: 5
   snapSpeed: 5
-  throttlePerPump: 25
-  decayDelay: 2
+  throttlePerPump: 15
+  decayDelay: 1
   decayRate: 8
 --- !u!1001 &1963254794
 PrefabInstance:
@@ -31456,9 +31456,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlaneCameraController, Assembly-CSharp
-        m_MethodName: PreviousPov
+        m_MethodName: NextPov
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -31486,7 +31486,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -53.454834, y: -193.27002}
+  m_AnchoredPosition: {x: -53.45508, y: -193.27002}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!4 &637793043637496123
@@ -35109,7 +35109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -87.00012}
+  m_AnchoredPosition: {x: 0, y: -87.00001}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4045338964924095896
@@ -38465,7 +38465,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 330585548}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: PlaneCameraController, Assembly-CSharp
         m_MethodName: NextPov
         m_Mode: 1
