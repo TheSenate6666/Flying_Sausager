@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1796204177869503403}
   - component: {fileID: 3881843011687884961}
   - component: {fileID: 779964645912242660}
+  - component: {fileID: 3314312824499581856}
   m_Layer: 0
   m_Name: PigBlood
   m_TagString: Untagged
@@ -4894,3 +4895,16 @@ ParticleSystemRenderer:
   m_MeshWeighting1: 1
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
+--- !u!114 &3314312824499581856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7669726429674810351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3f9204b22542c4e4d9c4a3109fb32354, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::DestroyPArticle
+  lifetime: 10
